@@ -18,6 +18,11 @@ export class SubmitFeedbackService {
 
         const { type, comment, screenshot, } = request;
 
+        if(!type) throw new Error("Tipo é obrigatório");
+        if(!comment) throw new Error("Comentário é obrigatório");
+
+        if(screenshot && !screenshot.startsWith('data:image/')) throw new Error("Screenshot precisa ser no padrão base64");
+
         await this.feedbackRepository.create({
             type,
             comment,
