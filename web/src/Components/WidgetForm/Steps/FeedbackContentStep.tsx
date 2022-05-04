@@ -17,22 +17,26 @@ export function FeedbackContentStep({
 	onFeedbackSend,
 }: FeedbackTypeStepProps) {
 	const [screenshot, setScreenshot] = useState<string | null>(null)
-	const [comment,setComment] = useState<string>("")
+	const [comment, setComment] = useState<string>("")
 	const [isSending, setIsSending] = useState<boolean>(false)
-  const [stillTakingScreenshoot, setStillTakingScreenshoot] = useState(false);
+	const [stillTakingScreenshoot, setStillTakingScreenshoot] = useState(false);
 
 	const feedbackTypeInfo = feedBackTypes[feedbackType]
 
 	async function handleSubmitFeedback(event: FormEvent) {
 		event.preventDefault()
 
-		if(stillTakingScreenshoot) return alert("Imagem ainda não carregada")
+		if (stillTakingScreenshoot) return alert("Imagem ainda não carregada")
 
 		setIsSending(true)
 
 		const trimComment = comment.trim()
 
-		await new Promise(resolve => setTimeout(resolve, 2000));
+		console.log({
+			trimComment,
+			screenshot,
+		});
+		
 
 		onFeedbackSend()
 
@@ -81,7 +85,7 @@ export function FeedbackContentStep({
 							disabled:opacity-50 disabled:hover:bg-brand-500
 						"
 					>
-						{ isSending ? <Loading /> : 'Enviar feedback'}
+						{isSending ? <Loading /> : 'Enviar feedback'}
 					</button>
 				</footer>
 			</form>
