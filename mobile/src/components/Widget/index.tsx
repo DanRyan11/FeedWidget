@@ -21,6 +21,7 @@ function Widget() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   function handleOpen() {
+    handleRestartFeedback();
     bottomSheetRef.current?.expand();
   }
 
