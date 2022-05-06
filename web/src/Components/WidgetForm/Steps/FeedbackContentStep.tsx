@@ -4,6 +4,7 @@ import { ScreenshotButton } from "../ScreenshotButton"
 import { CloseButton } from "../../CloseButton"
 import { FormEvent, useState } from "react"
 import { Loading } from "../../Loading"
+import { api } from '../../../lib/api'
 
 interface FeedbackTypeStepProps {
 	feedbackType: FeedbackType,
@@ -32,11 +33,11 @@ export function FeedbackContentStep({
 
 		const trimComment = comment.trim()
 
-		console.log({
-			trimComment,
+		await api.post('/feedbacks',{
+			type: feedbackType,
+			comment: trimComment,
 			screenshot,
-		});
-		
+		})
 
 		onFeedbackSend()
 
@@ -79,7 +80,7 @@ export function FeedbackContentStep({
 
 					<button
 						type="submit"
-						disabled={comment.trim().length === 0}
+						disabled={comment.trim().length === 0 || isSending}
 						className="p-2 bg-brand-500 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-brand-300 
 							focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500 transition-colors
 							disabled:opacity-50 disabled:hover:bg-brand-500
