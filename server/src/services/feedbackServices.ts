@@ -28,14 +28,15 @@ export class SubmitFeedbackService {
             comment,
             screenshot,
         })
+        const screenshotImage = screenshot ? `<p><img src="${screenshot}" /> </p>` : ''
 
         this.mailAdapter.sendMail({
             subject: 'Feedback',
             body: [
                 `<div style="font-family:sans-serif; font-size:16px; color:#111;">`,
-                `<p>Tipo feedback: ${type}</p>`,
-                `<p>Comentário: ${comment}</p>`,
-                `<p><img src="${screenshot}" /> </p>`,
+                    `<p>Tipo feedback: ${type}</p>`,
+                    `<p>Comentário: ${comment}</p>`,
+                    screenshotImage,
                 `</div>`
             ].join('\n')
         })
